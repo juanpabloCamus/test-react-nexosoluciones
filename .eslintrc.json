@@ -12,6 +12,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "prettier/prettier": "warn",
     "react/function-component-definition": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/prop-types": "off"
   }
 }
