@@ -1,8 +1,29 @@
 import React, { useState } from 'react';
+
 import { rovers, cameras } from '../utils/constants';
+import fetchFromApi from '../utils/fetchFromApi';
 
 const FilterBar = () => {
-  const [date, setDate] = useState('Earth');
+  const [dateType, setDateType] = useState('Earth');
+
+  const [search, setSerach] = useState({
+    rover: 'Curiosity',
+    camera: 'All',
+    date: new Date().toISOString().slice(0, 10),
+  });
+
+  const handleChange = (e) => {
+    setSerach({ ...search, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const fetch = await fetchFromApi(
+      search.rover,
+      `earth_date=${search.date}&page=1`,
+    );
+    console.log(fetch);
+  };
 
   return (
     <form
@@ -13,10 +34,11 @@ const FilterBar = () => {
         padding: '10px',
         borderBottom: '1px solid grey',
       }}
+      onSubmit={handleSubmit}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <label>Rover</label>
-        <select>
+        <select name="rover" onChange={handleChange}>
           {rovers.map((r) => (
             <option>{r}</option>
           ))}
@@ -25,7 +47,7 @@ const FilterBar = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <label>Camera</label>
-        <select>
+        <select name="camera" onChange={handleChange}>
           {cameras.map((r) => (
             <option>{r}</option>
           ))}
@@ -35,13 +57,22 @@ const FilterBar = () => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <select
           onChange={(e) => {
-            setDate(e.target.value);
+            setDateType(e.target.value);
           }}
         >
           <option value="Earth">Earth date</option>
           <option value="sun">Sun date</option>
         </select>
-        {date === 'Earth' ? <input type="date" /> : <input type="number" />}
+        {dateType === 'Earth' ? (
+          <input
+            onChange={handleChange}
+            type="date"
+            value={search.date}
+            name="date"
+          />
+        ) : (
+          <input type="number" name="date" />
+        )}
       </div>
 
       <button type="submit">Search</button>
