@@ -7,7 +7,7 @@ const fetchFromApi = async (rover, query) => {
     `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover.toLowerCase()}/photos/?api_key=${API_KEY}&${query}`,
   );
 
-  return data;
+  return data.photos;
 };
 
 export default fetchFromApi;

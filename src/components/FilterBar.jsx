@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
 
-const FilterBar = () => {
+const FilterBar = ({ setPhotos }) => {
   const [dateType, setDateType] = useState('Earth');
 
   const [search, setSerach] = useState({
@@ -22,7 +22,7 @@ const FilterBar = () => {
       search.rover,
       `earth_date=${search.date}&page=1`,
     );
-    console.log(fetch);
+    setPhotos(fetch);
   };
 
   return (
