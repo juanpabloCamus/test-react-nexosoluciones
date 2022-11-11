@@ -1,4 +1,5 @@
 import FilterBar from './components/FilterBar';
+import Gallery from './components/Gallery';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <Navbar />
       <FilterBar />
+      <Gallery />
     </div>
   );
 }
