@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
 
-const FilterBar = ({ setPhotos }) => {
+const FilterBar = ({ setPhotos, page }) => {
   const [dateType, setDateType] = useState('Earth');
 
   const [search, setSerach] = useState({
@@ -12,13 +12,7 @@ const FilterBar = ({ setPhotos }) => {
     date: new Date().toISOString().slice(0, 10),
   });
 
-  const handleChange = (e) => {
-    setSerach({ ...search, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const fetchData = async () => {
     const dateForFetch = dateType === 'Earth' ? 'earth_date' : 'sol';
 
     let fetch;
@@ -26,16 +20,29 @@ const FilterBar = ({ setPhotos }) => {
     if (search.camera === 'All') {
       fetch = await fetchFromApi(
         search.rover,
-        `${dateForFetch}=${search.date}&page=1`,
+        `${dateForFetch}=${search.date}&page=${page}`,
       );
     } else {
       fetch = await fetchFromApi(
         search.rover,
-        `${dateForFetch}=${search.date}&camera=${search.camera}&page=1`,
+        `${dateForFetch}=${search.date}&camera=${search.camera}&page=${page}`,
       );
     }
 
     setPhotos(fetch);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [page]);
+
+  const handleChange = (e) => {
+    setSerach({ ...search, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    fetchData();
   };
 
   return (
