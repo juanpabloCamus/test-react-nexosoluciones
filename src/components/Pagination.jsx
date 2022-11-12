@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../styles/Pagination.css';
+
 const Pagination = ({ page, setPage }) => {
   const handlePagination = (e) => {
     if (e.target.name === 'decrement') {
@@ -10,12 +12,22 @@ const Pagination = ({ page, setPage }) => {
   };
 
   return (
-    <div>
-      <button name="decrement" onClick={handlePagination} type="button">
+    <div className="pagination_container">
+      <button
+        className="pagination_button"
+        name="decrement"
+        onClick={handlePagination}
+        type="button"
+      >
         {'<'}
       </button>
-      <span>{page}</span>
-      <button name="increment" onClick={handlePagination} type="button">
+      <span className="pag_num">{page}</span>
+      <button
+        className="pagination_button"
+        name="increment"
+        onClick={handlePagination}
+        type="button"
+      >
         {'>'}
       </button>
     </div>

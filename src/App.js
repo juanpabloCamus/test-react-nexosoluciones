@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <FilterBar page={page} setPhotos={setPhotos} />
+      <FilterBar page={page} setPhotos={setPhotos} setPage={setPage} />
       <Gallery photos={photos} />
       <Pagination page={page} setPage={setPage} />
     </div>

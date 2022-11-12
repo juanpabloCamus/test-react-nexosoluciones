@@ -6,7 +6,7 @@ import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
 import favSearch from '../utils/favSearch';
 
-const FilterBar = ({ setPhotos, page }) => {
+const FilterBar = ({ setPhotos, page, setPage }) => {
   const [dateType, setDateType] = useState('Earth');
   const [search, setSerach] = useState({
     rover: 'Curiosity',
@@ -44,6 +44,7 @@ const FilterBar = ({ setPhotos, page }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPage(1);
     fetchData();
   };
 
