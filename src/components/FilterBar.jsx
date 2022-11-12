@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
+import favSearch from '../utils/favSearch';
 
 const FilterBar = ({ setPhotos, page }) => {
   const [dateType, setDateType] = useState('Earth');
@@ -96,6 +97,14 @@ const FilterBar = ({ setPhotos, page }) => {
       </div>
 
       <button type="submit">Search</button>
+      <button
+        onClick={() => {
+          favSearch(search);
+        }}
+        type="button"
+      >
+        Fav Search
+      </button>
     </form>
   );
 };
