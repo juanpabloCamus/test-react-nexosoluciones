@@ -6,7 +6,6 @@ import favSearch from '../utils/favSearch';
 
 const FilterBar = ({ setPhotos, page }) => {
   const [dateType, setDateType] = useState('Earth');
-
   const [search, setSerach] = useState({
     rover: 'Curiosity',
     camera: 'All',
