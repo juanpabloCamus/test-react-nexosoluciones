@@ -21,10 +21,19 @@ const FilterBar = ({ setPhotos }) => {
 
     const dateForFetch = dateType === 'Earth' ? 'earth_date' : 'sol';
 
-    const fetch = await fetchFromApi(
-      search.rover,
-      `${dateForFetch}=${search.date}&page=1`,
-    );
+    let fetch;
+
+    if (search.camera === 'All') {
+      fetch = await fetchFromApi(
+        search.rover,
+        `${dateForFetch}=${search.date}&page=1`,
+      );
+    } else {
+      fetch = await fetchFromApi(
+        search.rover,
+        `${dateForFetch}=${search.date}&camera=${search.camera}&page=1`,
+      );
+    }
 
     setPhotos(fetch);
   };
