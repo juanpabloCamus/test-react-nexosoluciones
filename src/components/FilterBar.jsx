@@ -18,10 +18,14 @@ const FilterBar = ({ setPhotos }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const dateForFetch = dateType === 'Earth' ? 'earth_date' : 'sol';
+
     const fetch = await fetchFromApi(
       search.rover,
-      `earth_date=${search.date}&page=1`,
+      `${dateForFetch}=${search.date}&page=1`,
     );
+
     setPhotos(fetch);
   };
 
@@ -40,7 +44,7 @@ const FilterBar = ({ setPhotos }) => {
         <label>Rover</label>
         <select name="rover" onChange={handleChange}>
           {rovers.map((r) => (
-            <option>{r}</option>
+            <option key={r}>{r}</option>
           ))}
         </select>
       </div>
@@ -48,8 +52,8 @@ const FilterBar = ({ setPhotos }) => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <label>Camera</label>
         <select name="camera" onChange={handleChange}>
-          {cameras.map((r) => (
-            <option>{r}</option>
+          {cameras.map((c) => (
+            <option key={c}>{c}</option>
           ))}
         </select>
       </div>
@@ -71,7 +75,7 @@ const FilterBar = ({ setPhotos }) => {
             name="date"
           />
         ) : (
-          <input type="number" name="date" />
+          <input type="number" name="date" onChange={handleChange} />
         )}
       </div>
 

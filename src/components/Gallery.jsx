@@ -3,7 +3,7 @@ import PhotoCard from './PhotoCard';
 
 const Gallery = ({ photos }) => {
   return (
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
       {photos.map((p) => (
         <PhotoCard key={p.id} src={p.img_src} />
       ))}
