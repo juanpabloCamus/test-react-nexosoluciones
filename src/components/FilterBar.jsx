@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import '../styles/FilterBar.css';
+
 import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
 import favSearch from '../utils/favSearch';
@@ -46,17 +48,8 @@ const FilterBar = ({ setPhotos, page }) => {
   };
 
   return (
-    <form
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px',
-        padding: '10px',
-        borderBottom: '1px solid grey',
-      }}
-      onSubmit={handleSubmit}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <form className="filter_bar" onSubmit={handleSubmit}>
+      <div className="select_container">
         <label>Rover</label>
         <select name="rover" onChange={handleChange}>
           {rovers.map((r) => (
@@ -65,7 +58,7 @@ const FilterBar = ({ setPhotos, page }) => {
         </select>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="select_container">
         <label>Camera</label>
         <select name="camera" onChange={handleChange}>
           {cameras.map((c) => (
@@ -74,7 +67,7 @@ const FilterBar = ({ setPhotos, page }) => {
         </select>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="select_container">
         <select
           onChange={(e) => {
             setDateType(e.target.value);
@@ -85,25 +78,36 @@ const FilterBar = ({ setPhotos, page }) => {
         </select>
         {dateType === 'Earth' ? (
           <input
+            id="earth_input"
             onChange={handleChange}
             type="date"
             value={search.date}
             name="date"
           />
         ) : (
-          <input type="number" name="date" onChange={handleChange} />
+          <input
+            id="sun_input"
+            type="number"
+            name="date"
+            onChange={handleChange}
+          />
         )}
       </div>
 
-      <button type="submit">Search</button>
-      <button
-        onClick={() => {
-          favSearch(search);
-        }}
-        type="button"
-      >
-        Fav Search
-      </button>
+      <div className="select_container">
+        <button className="button" type="submit">
+          Search
+        </button>
+        <button
+          onClick={() => {
+            favSearch(search);
+          }}
+          type="button"
+          className="button"
+        >
+          Save Search
+        </button>
+      </div>
     </form>
   );
 };

@@ -12,7 +12,6 @@ const Navbar = () => {
         flexDirection: 'column',
         gap: '3px',
         paddingBottom: '5px',
-        marginBottom: '10px',
       }}
     >
       <div
