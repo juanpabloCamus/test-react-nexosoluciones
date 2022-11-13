@@ -15,7 +15,14 @@ const Gallery = ({ photos }) => {
       }}
     >
       {photos.map((p) => (
-        <PhotoCard key={p.id} src={p.img_src} />
+        <PhotoCard
+          key={p.id}
+          src={p.img_src}
+          cameraName={p.camera.full_name}
+          earthDate={p.earth_date}
+          sunDate={p.sol}
+          rover={p.rover.name}
+        />
       ))}
     </div>
   );
