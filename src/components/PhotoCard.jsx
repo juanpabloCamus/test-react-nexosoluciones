@@ -1,9 +1,11 @@
 import React from 'react';
 
+import '../styles/PhotoCard.css';
+
 const PhotoCard = ({ src }) => {
   return (
     <div>
-      <img style={{ maxWidth: '200px' }} src={src} alt="alt" />
+      <img className="img" src={src} alt="alt" />
     </div>
   );
 };

@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('https://i.pinimg.com/originals/32/67/e3/3267e359b5cd0a71e7e7c715515e9ad4.jpg');
+  background-image: url('./assets/background.jpg');
   color: white;
   backdrop-filter: blur(10px);
   min-height: 900px;
