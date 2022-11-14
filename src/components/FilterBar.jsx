@@ -6,7 +6,7 @@ import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
 import favSearch from '../utils/favSearch';
 
-const FilterBar = ({ setPhotos, page, setPage }) => {
+const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
   const [dateType, setDateType] = useState('Earth');
   const [search, setSerach] = useState({
     rover: 'Curiosity',
@@ -15,6 +15,8 @@ const FilterBar = ({ setPhotos, page, setPage }) => {
   });
 
   const fetchData = async () => {
+    setLoading(true);
+
     const dateForFetch = dateType === 'Earth' ? 'earth_date' : 'sol';
 
     let fetch;
@@ -32,6 +34,7 @@ const FilterBar = ({ setPhotos, page, setPage }) => {
     }
 
     setPhotos(fetch);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -90,6 +93,7 @@ const FilterBar = ({ setPhotos, page, setPage }) => {
             id="sun_input"
             type="number"
             name="date"
+            placeholder="Ex: 1000"
             onChange={handleChange}
           />
         )}

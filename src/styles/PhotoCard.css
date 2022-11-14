@@ -31,3 +31,20 @@
 .img_span {
   display: block;
 }
+
+/* Loader */
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.loading_logo {
+  animation: rotation 15s infinite linear;
+  width: 200px;
+  height: 200px;
+}
