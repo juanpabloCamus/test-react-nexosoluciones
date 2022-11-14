@@ -24,7 +24,7 @@ function App() {
         <Loader />
       ) : (
         <>
-          <Gallery photos={photos} />
+          <Gallery photos={photos} page={page} />
           <Pagination page={page} setPage={setPage} />
         </>
       )}

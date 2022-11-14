@@ -1,8 +1,30 @@
 import React from 'react';
 import PhotoCard from './PhotoCard';
 
-const Gallery = ({ photos }) => {
-  if (photos.length === 0) return <h1>There arent photos with this params</h1>;
+const Gallery = ({ photos, page }) => {
+  if (photos.length === 0) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignContent: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          textAlign: 'center',
+          color: 'orange',
+        }}
+      >
+        {page !== 1 ? (
+          <h1>There are no more photos with these search parameters</h1>
+        ) : (
+          <>
+            <h1>There are no photos with these search parameters</h1>
+            <h2>Please try others</h2>
+          </>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div
