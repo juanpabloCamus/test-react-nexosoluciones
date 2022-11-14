@@ -5,6 +5,7 @@ import '../styles/FilterBar.css';
 import { rovers, cameras } from '../utils/constants';
 import fetchFromApi from '../utils/fetchFromApi';
 import favSearch from '../utils/favSearch';
+import Saved from './Saved';
 
 const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
   const [dateType, setDateType] = useState('Earth');
@@ -13,6 +14,7 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
     camera: 'All',
     date: new Date().toISOString().slice(0, 10),
   });
+  const [saved, setSaved] = useState([]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -45,75 +47,79 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
     setSerach({ ...search, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setPage(1);
     fetchData();
   };
 
   return (
-    <form className="filter_bar" onSubmit={handleSubmit}>
-      <div className="select_container">
-        <label>Rover</label>
-        <select name="rover" onChange={handleChange}>
-          {rovers.map((r) => (
-            <option key={r}>{r}</option>
-          ))}
-        </select>
-      </div>
+    <>
+      <form className="filter_bar" onSubmit={handleSubmit}>
+        <div className="select_container">
+          <label>Rover</label>
+          <select name="rover" onChange={handleChange}>
+            {rovers.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+          </select>
+        </div>
 
-      <div className="select_container">
-        <label>Camera</label>
-        <select name="camera" onChange={handleChange}>
-          {cameras.map((c) => (
-            <option key={c}>{c}</option>
-          ))}
-        </select>
-      </div>
+        <div className="select_container">
+          <label>Camera</label>
+          <select name="camera" onChange={handleChange}>
+            {cameras.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </div>
 
-      <div className="select_container">
-        <select
-          onChange={(e) => {
-            setDateType(e.target.value);
-          }}
-        >
-          <option value="Earth">Earth date</option>
-          <option value="sun">Sun date</option>
-        </select>
-        {dateType === 'Earth' ? (
-          <input
-            id="earth_input"
-            onChange={handleChange}
-            type="date"
-            value={search.date}
-            name="date"
-          />
-        ) : (
-          <input
-            id="sun_input"
-            type="number"
-            name="date"
-            placeholder="Ex: 1000"
-            onChange={handleChange}
-          />
-        )}
-      </div>
+        <div className="select_container">
+          <select
+            onChange={(e) => {
+              setDateType(e.target.value);
+            }}
+          >
+            <option value="Earth">Earth date</option>
+            <option value="sun">Sun date</option>
+          </select>
+          {dateType === 'Earth' ? (
+            <input
+              id="earth_input"
+              onChange={handleChange}
+              type="date"
+              value={search.date}
+              name="date"
+            />
+          ) : (
+            <input
+              id="sun_input"
+              type="number"
+              name="date"
+              placeholder="Ex: 1000"
+              onChange={handleChange}
+            />
+          )}
+        </div>
 
-      <div className="select_container">
-        <button className="button" type="submit">
-          Search
-        </button>
-        <button
-          onClick={() => {
-            favSearch(search);
-          }}
-          type="button"
-          className="button"
-        >
-          Save Search
-        </button>
-      </div>
-    </form>
+        <div className="select_container">
+          <button className="button" type="submit">
+            Search
+          </button>
+          <button
+            onClick={() => {
+              favSearch(search);
+              setSaved(saved === null ? [search] : saved.concat(search));
+            }}
+            type="button"
+            className="button"
+          >
+            Save Search
+          </button>
+        </div>
+      </form>
+      <Saved saved={saved} setSaved={setSaved} />
+    </>
   );
 };
 

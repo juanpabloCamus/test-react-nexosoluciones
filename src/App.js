@@ -25,7 +25,9 @@ function App() {
       ) : (
         <>
           <Gallery photos={photos} page={page} />
-          <Pagination page={page} setPage={setPage} />
+          {page === 1 && photos.length === 0 ? null : (
+            <Pagination page={page} setPage={setPage} />
+          )}
         </>
       )}
     </div>
