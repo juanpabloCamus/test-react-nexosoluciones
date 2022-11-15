@@ -80,8 +80,12 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
               setDateType(e.target.value);
             }}
           >
-            <option value="Earth">Earth date</option>
-            <option value="sun">Sun date</option>
+            <option selected={dateType === 'Earth'} value="Earth">
+              Earth date
+            </option>
+            <option selected={dateType !== 'Earth'} value="sun">
+              Sun date
+            </option>
           </select>
           {dateType === 'Earth' ? (
             <input
