@@ -58,7 +58,7 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
       <form className="filter_bar" onSubmit={handleSubmit}>
         <div className="select_container">
           <label>Rover</label>
-          <select name="rover" onChange={handleChange}>
+          <select value={search.rover} name="rover" onChange={handleChange}>
             {rovers.map((r) => (
               <option key={r}>{r}</option>
             ))}
@@ -67,7 +67,7 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
 
         <div className="select_container">
           <label>Camera</label>
-          <select name="camera" onChange={handleChange}>
+          <select value={search.camera} name="camera" onChange={handleChange}>
             {cameras.map((c) => (
               <option key={c}>{c}</option>
             ))}
@@ -97,6 +97,7 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
               type="number"
               name="date"
               placeholder="Ex: 1000"
+              value={search.date}
               onChange={handleChange}
             />
           )}
@@ -118,7 +119,12 @@ const FilterBar = ({ setPhotos, page, setPage, setLoading }) => {
           </button>
         </div>
       </form>
-      <Saved saved={saved} setSaved={setSaved} />
+      <Saved
+        saved={saved}
+        setSaved={setSaved}
+        setSerach={setSerach}
+        setDateType={setDateType}
+      />
     </>
   );
 };
